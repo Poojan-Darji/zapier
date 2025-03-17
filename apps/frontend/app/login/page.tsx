@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 const Page = () => {
-    const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+
     const router = useRouter();
     return (
         <div>
@@ -35,13 +35,6 @@ const Page = () => {
                         }}
                     />
                     <Input
-                        type="text"
-                        label="Name"
-                        onChange={(e) => {
-                            setName(e.target.value);
-                        }}
-                    />
-                    <Input
                         type="password"
                         label="Password"
                         onChange={(e) => {
@@ -57,12 +50,11 @@ const Page = () => {
                             size="small"
                             onClick={async () => {
                                 const res = await axios.post(
-                                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/signup`,
-                                    { name, username: email, password }
+                                    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/signin`,
+                                    { username: email, password }
                                 );
-                                if (res.status === 200) {
-                                    router.push("/login");
-                                }
+                                localStorage.setItem("token", res.data.token);
+                                router.push("/dashboard");
                             }}
                         >
                             Get Started for Free
