@@ -13,6 +13,7 @@ router.post("/signup", async (req: Request, res: Response) => {
         res.status(411).json({ message: "incorrect input" });
         return;
     }
+
     const userExists = await db.user.findFirst({
         where: {
             email: parsedBody.data.username,
@@ -22,6 +23,7 @@ router.post("/signup", async (req: Request, res: Response) => {
         res.status(403).json({ message: "user already exists" });
         return;
     }
+
     const user = await db.user.create({
         data: {
             email: parsedBody.data.username,
@@ -54,7 +56,7 @@ router.post("/signin", async (req: Request, res: Response) => {
         return;
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string);
+    const token = jwt.sign({ id: user.id }, process.env.JWT_KEY as string);
 
     res.status(200).json({ message: "ok", token });
     return;

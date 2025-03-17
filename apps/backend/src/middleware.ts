@@ -15,7 +15,7 @@ export const authMiddleware = (
     try {
         const payload = jwt.verify(
             token,
-            process.env.JWT_SECRET as string
+            process.env.JWT_KEY as string
         ) as JwtPayload;
 
         req.id = payload.id;

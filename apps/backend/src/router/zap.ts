@@ -1,11 +1,11 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import { authMiddleware } from "../middleware";
 import { zapCreateSchema } from "../types";
 import db from "@repo/db/client";
 
 const router = Router();
 
-router.post("/", authMiddleware, async (req, res) => {
+router.post("/", authMiddleware, async (req: Request, res: Response) => {
     const id = req.id;
     const body = req.body;
     const parsedBody = zapCreateSchema.safeParse(body);
@@ -14,7 +14,7 @@ router.post("/", authMiddleware, async (req, res) => {
         return;
     }
 
-    await db.$transaction(async (tx) => {
+    const zapId = await db.$transaction(async (tx) => {
         const zap = await tx.zap.create({
             data: {
                 userId: id,
@@ -43,11 +43,17 @@ router.post("/", authMiddleware, async (req, res) => {
                 triggerId: trigger.triggerId,
             },
         });
+
+        return zap.id;
     });
+
+    res.status(200).json({ message: "ok", zapId });
+    return;
 });
 
 router.get("/", authMiddleware, async (req, res) => {
     const id = req.id;
+
     const zaps = await db.zap.findMany({
         where: {
             userId: id,
