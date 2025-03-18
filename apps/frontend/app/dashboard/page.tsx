@@ -1,10 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Appbar from "../../components/Appbar";
-import DarkButton from "../../components/buttons/DarkButton";
 import axios from "axios";
-import LinkButton from "../../components/buttons/LinkButton";
 import { useRouter } from "next/navigation";
+import { Appbar, DarkButton, LinkButton } from "../../components";
+import Image from "next/image";
 
 interface Zap {
     id: string;
@@ -18,6 +17,7 @@ interface Zap {
         type: {
             id: string;
             name: string;
+            image: string;
         };
     }[];
     trigger: {
@@ -27,6 +27,7 @@ interface Zap {
         type: {
             id: string;
             name: string;
+            image: string;
         };
     };
 }
@@ -86,21 +87,40 @@ export default Page;
 const ZapTable = ({ zaps }: { zaps: Zap[] }) => {
     const router = useRouter();
     return (
-        <div className="max-w-screen-lg p-8 w-full">
+        <div className="max-w-screen-xl p-8 w-full">
             <div className="flex">
-                <div className="flex-1">Name</div>
-                <div className="flex-1">Last Edit</div>
-                <div className="flex-1">Running</div>
-                <div className="flex-1">GO</div>
+                <div className="flex-1 font-bold">Name</div>
+                <div className="flex-1 font-bold">ID</div>
+                <div className="flex-1 font-bold">Created At</div>
+                <div className="flex-1 font-bold">Webhook URL</div>
+                <div className="flex-1 font-bold">Go</div>
             </div>
             {zaps.map((z, idx) => (
                 <div key={idx} className="flex border-b border-t py-4">
-                    <div className="flex-1">
-                        {z.trigger.type.name}
-                        {z.actions.map((x) => x.type.name + " ")}
+                    <div className="flex-1 flex gap-2 aspect-auto">
+                        <Image
+                            width={30}
+                            height={30}
+                            src={z.trigger.type.image}
+                            alt="image"
+                            unoptimized={true}
+                            className="h-[30px] w-[30px]"
+                        />
+                        {z.actions.map((x) => (
+                            <Image
+                                key={x.id}
+                                width={30}
+                                height={30}
+                                src={x.type.image}
+                                alt="image"
+                                unoptimized={true}
+                                className="h-[30px] w-[30px]"
+                            />
+                        ))}
                     </div>
                     <div className="flex-1">{z.id}</div>
                     <div className="flex-1">Sep 9, 2024</div>
+                    <div className="flex-1">{`${process.env.NEXT_PUBLIC_HOOK_BACKEND_URL}//hooks/catch/${z.userId}/${z.id}`}</div>
                     <div className="flex-1">
                         <LinkButton
                             onClick={() => {

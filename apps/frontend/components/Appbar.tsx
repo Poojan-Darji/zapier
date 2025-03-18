@@ -24,6 +24,7 @@ const Appbar = () => {
                     </LinkButton>
                 </div>
                 <PrimaryButton
+                    size="small"
                     onClick={() => {
                         router.push("/signup");
                     }}

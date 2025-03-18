@@ -1,11 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import CheckFeature from "../../components/CheckFeature";
-import Appbar from "../../components/Appbar";
-import Input from "../../components/Input";
-import PrimaryButton from "../../components/buttons/PrimaryButton";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { Appbar, CheckFeature, Input, PrimaryButton } from "../../components";
 
 const Page = () => {
     const [email, setEmail] = useState<string>("");

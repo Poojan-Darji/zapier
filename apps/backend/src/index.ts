@@ -3,6 +3,8 @@ import { userRouter } from "./router/user";
 import { zapRouter } from "./router/zap";
 import cors from "cors";
 import dotenv from "dotenv";
+import { triggerRouter } from "./router/trigger";
+import { actionRouter } from "./router/action";
 
 dotenv.config();
 
@@ -13,6 +15,8 @@ app.use(cors());
 
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/zap", zapRouter);
+app.use("/api/v1/trigger", triggerRouter);
+app.use("/api/v1/action", actionRouter);
 
 app.listen(3001, () => {
     console.log("backend listening on port 3001");

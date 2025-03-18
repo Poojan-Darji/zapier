@@ -17,11 +17,6 @@ const main = async () => {
 
     await consumer.run({
         eachMessage: async ({ topic, partition, message }) => {
-            console.log({
-                partition,
-                offset: message.offset,
-                value: message.value?.toString(),
-            });
             await new Promise((resolve) => setTimeout(resolve, 1000));
             await consumer.commitOffsets([
                 {

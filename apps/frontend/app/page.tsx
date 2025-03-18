@@ -1,6 +1,4 @@
-import Appbar from "../components/Appbar";
-import Hero from "../components/Hero";
-import HeroPhoto from "../components/HeroPhoto";
+import { Appbar, Hero, HeroPhoto } from "../components";
 
 export default function Home() {
     return (
