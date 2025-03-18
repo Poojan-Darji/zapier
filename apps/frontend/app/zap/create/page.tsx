@@ -10,6 +10,7 @@ interface selectedActionType {
     availableActionId: string;
     availableActionName: string;
     availableActionImage: string;
+    metadata: any;
 }
 
 interface selectedTriggerType {
@@ -72,7 +73,7 @@ const Page = () => {
                                 triggerMetadata: {},
                                 actions: selectedAction.map((a) => ({
                                     availableActionId: a.availableActionId,
-                                    actionMetadata: {},
+                                    actionMetadata: a.metadata,
                                 })),
                             },
                             {
@@ -135,6 +136,7 @@ const Page = () => {
                                     availableActionId: "",
                                     availableActionName: "",
                                     availableActionImage: "",
+                                    metadata: {},
                                 },
                             ]);
                         }}
@@ -156,6 +158,7 @@ const Page = () => {
                             name: string;
                             id: string;
                             image: string;
+                            metadata: any;
                         }
                     ) => {
                         if (props === null) {
@@ -176,6 +179,7 @@ const Page = () => {
                                     availableActionId: props.id,
                                     availableActionName: props.name,
                                     availableActionImage: props.image,
+                                    metadata: props.metadata,
                                 };
                                 return newSelectedAction;
                             });
