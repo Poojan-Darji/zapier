@@ -10,7 +10,9 @@
     "license": "ISC",
     "description": "",
     "dependencies": {
+        "@prisma/client": "*",
         "@repo/db": "*",
-        "@repo/shared": "*"
+        "@repo/shared": "*",
+        "dotenv": "^16.4.7"
     }
 }

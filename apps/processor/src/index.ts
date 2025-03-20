@@ -19,9 +19,11 @@ const main = async () => {
 
         producer.send({
             topic: GLOBAL_CONSTANTS.TOPIC_NAME,
-            messages: pendingRows.map((row) => ({
-                value: row.zapRunId,
-            })),
+            messages: pendingRows.map((row) => {
+                return {
+                    value: JSON.stringify({ value: row.zapRunId, stage: 0 }),
+                };
+            }),
         });
 
         await db.zapRunOutbox.deleteMany({
