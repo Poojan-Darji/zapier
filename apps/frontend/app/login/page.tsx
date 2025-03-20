@@ -57,18 +57,6 @@ const Page = () => {
                             Get Started for Free
                         </PrimaryButton>
                     </div>
-                    <div className="text-sm pt-3 text-center">
-                        Already have an account?
-                        <span
-                            className="text-[#ff4f00] cursor-pointer"
-                            onClick={() => {
-                                router.push("/login");
-                            }}
-                        >
-                            {" "}
-                            Log In{" "}
-                        </span>
-                    </div>
                 </div>
             </div>
         </div>
